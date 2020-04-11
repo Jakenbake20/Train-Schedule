@@ -31,18 +31,18 @@ var firebaseConfig = {
 
   var database = firebase.database();
   
-  // 2. Button for adding trains
+  // submit button
   $("#add-train-btn").on("click", function(event) {
     event.preventDefault();
   
-    // Grabs user input
+    // variables for the user Input
     var trnName = $("#train-name-input").val().trim();
     var trnDestination = $("#destination-input").val().trim();
     var trnStart = moment($("#start-input").val().trim(), "HH:mm").format("X");
     var trnFrequency = $("#frequency-input").val().trim();
     console.log(trnStart);
   
-    // Creates local "temporary" object for holding train data
+    //creates new data
     var newTrn = {
       name: trnName,
       destination: trnDestination,
@@ -50,10 +50,10 @@ var firebaseConfig = {
       frequency: trnFrequency
     };
   
-    // Uploads train data to the database
+    // sends to my firebase
     database.ref().push(newTrn);
   
-    // Logs everything to console
+    // tes
     console.log(newTrn.name);
     console.log(newTrn.destination);
     console.log(newTrn.start);
@@ -61,30 +61,29 @@ var firebaseConfig = {
   
     alert("train successfully added");
   
-    // Clears all of the text-boxes
+    // clears the text boxes
     $("#train-name-input").val("");
     $("#destination-input").val("");
     $("#start-input").val("");
     $("#frequency-input").val("");
   });
   
-  // 3. Create Firebase event for adding train to the database and a row in the html when a user adds an entry
+  // converts firebase data to html on DOM
   database.ref().on("child_added", function(childSnapshot) {
     console.log(childSnapshot.val());
   
-    // Store everything into a variable.
+    //Train variables
     var trnName = childSnapshot.val().name;
     var trnDestination = childSnapshot.val().destination;
     var trnStart = childSnapshot.val().start;
     var trnFrequency = childSnapshot.val().frequency;
   
-    // train Info
+    // test
     console.log(trnName);
     console.log(trnDestination);
     console.log(trnStart);
     console.log(trnFrequency);
 
-    // var firstTime="03:30";
 
     var trnStartConverted = moment(trnStart, "HH:mm");
     console.log(trnStartConverted);
