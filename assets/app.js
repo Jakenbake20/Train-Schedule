@@ -96,7 +96,7 @@ var firebaseConfig = {
     var currentTime = moment();
     console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
     
-    // // Prettify the train start
+    
     var trnStartPretty = moment.unix(trnStart).format("HH:mm");
   
     // Create the new row
